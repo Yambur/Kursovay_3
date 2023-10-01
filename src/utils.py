@@ -1,22 +1,16 @@
-import json
-import os.path
-
-
 def filter_and_sorting(data: list):
-    """Ищет более новую дату"""
     items = [item for item in data if item.get('state') == "EXECUTED"]
     items.sort(key=lambda x: x.get('date'), reverse=True)
-    print(items)
+    return items
 
 
 def get_date(date: str):
-    """Определяет дату и время операции"""
     date_num = date[0:10].split('-')
     return date_num[2] + '.' + date_num[1] + '.' + date_num[0]
 
 
 def mask_prepare_message_number(message):
-    """Определяет карта или счет"""
+    """будет определять карта или счет"""
     # если в json не было ключей from и to
     if message is None:
         return 'Личный счет'
@@ -31,19 +25,17 @@ def mask_prepare_message_number(message):
 
 
 def mask_card_number(number: str):
-    """Проверка номера карты"""
     if number.isdigit() and len(number) == 16:
         return number[:4] + ' ' + number[4:6] + '** **** ' + number[-4:]
     else:
-        print('Номер карты не подходит')
+        print('номер карты не подходит')
 
 
 def mask_account_number(number: str):
-    """Проверка номера счета"""
     if number.isdigit() and len(number) >= 4:
         return "**" + number[-4:]
     else:
-        print('Номер счета не подходит')
+        print('номер счета не подходит')
 
 
 def prepare_user_message(item: dict):
