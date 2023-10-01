@@ -3,7 +3,8 @@ import os.path
 
 
 def filter_and_sorting(data: list):
-    items = [item for item in data if item.get('state') == "EXECUTED"]  # TODO ниже закомментирован разбор генератора
+    """Переворачивает дату"""
+    items = [item for item in data if item.get('state') == "EXECUTED"]
     items.sort(key=lambda x: x.get('date'), reverse=True)
     return items
 
