@@ -3,10 +3,10 @@ import os.path
 
 
 def filter_and_sorting(data: list):
-    """Переворачивает дату"""
+    """Ищет более новую дату"""
     items = [item for item in data if item.get('state') == "EXECUTED"]
     items.sort(key=lambda x: x.get('date'), reverse=True)
-    return items
+    print(items)
 
 
 def get_date(date: str):
