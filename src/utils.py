@@ -1,17 +1,6 @@
-import json
-import os.path
-
-
 def filter_and_sorting(data: list):
-    items = [item for item in data if item.get('state') == "EXECUTED"]  # TODO ниже закомментирован разбор генератора
-    # items = []
-    # for item in data:
-    #     if item.get('state') == "EXECUTED":
-    #         items.append(item)
-
+    items = [item for item in data if item.get('state') == "EXECUTED"]
     items.sort(key=lambda x: x.get('date'), reverse=True)
-    # def key_sort(x):
-    #     return x.get('date')
     return items
 
 
@@ -58,20 +47,3 @@ def prepare_user_message(item: dict):
     curr = item.get('operationAmount').get('currency').get('name')
 
     return f'{date} {desc}\n{from_} -> {to_}\n{amount} {curr}\n'
-
-
-"""
-# Пример вывода для одной операции:
-14.10.2018 Перевод организации
-Visa Platinum 7000 79** **** 6361 -> Счет **9638
-82771.72 руб.
-"""
-
-"""with open('operations.json') as file:
-    data = json.load(file)
-
-items = filter_and_sorting(data)
-
-for i in range(5):
-    print(prepare_user_message(items[i]))
-"""
