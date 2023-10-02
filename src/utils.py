@@ -1,16 +1,25 @@
 def filter_and_sorting(data: list):
+    """
+    Определяет операцию по State
+    И выводит с самой ранней датой
+    """
     items = [item for item in data if item.get('state') == "EXECUTED"]
     items.sort(key=lambda x: x.get('date'), reverse=True)
     return items
 
 
 def get_date(date: str):
+    """
+    Переворачивает дату на нужную нам
+    """
     date_num = date[0:10].split('-')
     return date_num[2] + '.' + date_num[1] + '.' + date_num[0]
 
 
 def mask_prepare_message_number(message):
-    """будет определять карта или счет"""
+    """
+    Будет определять карта или счет
+    """
     # если в json не было ключей from и to
     if message is None:
         return 'Личный счет'
@@ -25,6 +34,9 @@ def mask_prepare_message_number(message):
 
 
 def mask_card_number(number: str):
+    """
+    Проверяет, правильно ли написан номер карты
+    """
     if number.isdigit() and len(number) == 16:
         return number[:4] + ' ' + number[4:6] + '** **** ' + number[-4:]
     else:
@@ -32,6 +44,9 @@ def mask_card_number(number: str):
 
 
 def mask_account_number(number: str):
+    """
+    Определяет, подходит ли номер счета
+    """
     if number.isdigit() and len(number) >= 4:
         return "**" + number[-4:]
     else:
